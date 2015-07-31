@@ -1,14 +1,14 @@
 # This function will retrieve a list of services that match the ServiceName (NOT the DisplayName)
-# It will then check if the matching services are running
-# If they are running, they will be stopped
-# If they are not running, they will be left as they are
+# It will then check if the matching services are started
+# If they are started, they will be stopped
+# If they are not started, they will be left as they are
 
-function CheckService{
+function StopServiceIfStarted{
 	param($ServiceName)
 	
 	$arrService = Get-Service -Name $ServiceName
 	
-	if ($arrService.Status -eq "Running"){
+	if ($arrService.Status -eq "running"){
 		Stop-Service $ServiceName
 		Write-Host "Stopping " $ServiceName " service" 
 	}
@@ -19,4 +19,4 @@ function CheckService{
  }
  
  # Usage:
- CheckService "YourServiceName"
+ StopServiceIfStarted "YourServiceName"
